@@ -1,0 +1,16 @@
+2001-05-17  Eugene Sandulenko  <sev@interhack.net>
+
+	* pixmaps/wanderer-logo.png: created
+
+	* pixmaps/wanderer.png
+	* pixmaps/16x16.png
+	* pixmaps/48x48.png: combined all *.xpm files and removed icons dir
+
+	* Got sources of GnomeHello-0.1 and started to tweak it for
+	gwanderer. Credits to Havoc Pennington.
+
+	* icons/*
+	* icons/16x16/*
+	* icons/48x48/*: converted all original *.xbm files to *.xpm
+
+

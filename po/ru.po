@@ -1,0 +1,80 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR Free Software Foundation, Inc.
+# Eugene Sandulenko <sev@interhack.net>
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: 2001-05-18 00:47+0300\n"
+"PO-Revision-Date: 1999-07-30 09:26-0400\n"
+"Last-Translator: Eugene Sandulenko <sev@interhack.net>\n"
+"Language-Team: Russian <ru@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=koi8-r\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: src/gwanderer.c:47
+msgid "Specify the geometry of the main window"
+msgstr "Задать геометрию основного окна"
+
+#: src/gwanderer.c:48
+msgid "GEOMETRY"
+msgstr "ГЕОМЕТРИЯ"
+
+#: src/gwanderer.c:94
+msgid "You must specify someone to greet."
+msgstr "Вы должны указать кого приветствовать."
+
+#: src/gwanderer.c:96
+msgid "Command line arguments are only allowed with --greet."
+msgstr "Аргументы командной строки разрешены только с --greet."
+
+#: src/app.c:42 src/menus.c:161
+msgid "gwanderer"
+msgstr ""
+
+#: src/app.c:48 src/menus.c:120
+msgid "Hello, World!"
+msgstr "Hello, World!"
+
+#: src/app.c:93
+#, c-format
+msgid "Could not parse geometry string `%s'"
+msgstr "Невозможно разобрать описание геометрии `%s'"
+
+#: src/menus.c:33
+msgid "_New Hello"
+msgstr "Новое Hello"
+
+#: src/menus.c:34 src/menus.c:83
+msgid "Create a new hello"
+msgstr "Создать новое hello"
+
+#: src/menus.c:83
+msgid "New"
+msgstr "Новое"
+
+#: src/menus.c:87
+msgid "Prev"
+msgstr "Пред."
+
+#: src/menus.c:87
+msgid "Previous hello"
+msgstr "Предыдущее hello"
+
+#: src/menus.c:88
+msgid "Next"
+msgstr "След."
+
+#: src/menus.c:88
+msgid "Next hello"
+msgstr "Следующее hello"
+
+#: src/menus.c:111
+msgid "This does nothing; it is only a demonstration."
+msgstr "Не делает ничего; просто демонстрация."
+
+#: src/menus.c:164
+msgid "A GNOME puzzle game."
+msgstr ""
+
