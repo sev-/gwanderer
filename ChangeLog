@@ -1,3 +1,9 @@
+2001-12-12  Eugene Dandulenko  <sev@interhack.net>
+
+	* TODO: created
+	* doc/C/help.c: put in CVS old gwanderer3 help file. Needs to be
+	  converted into SGML file
+
 2001-09-10  Eugene Sandulenko  <sev@interhack.net>
 
         * gwanderer 0.0.1 released

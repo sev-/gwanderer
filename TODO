@@ -1,0 +1,29 @@
+TODO list:
+
+* Create gwanderer.sourceforge.net site
+
+* Convert help files to HTML
+
+* Remove all references to gnobots
+
+* Put all code in order to look more Gnomish not in a way of year 1988 :)
+
+* Add hi-scores tracking
+
+* Make death reporting look better
+
+* Make initial screen instead of zillion ??'s
+
+* Add intl hooks to old code, so it would be possible to translate the game
+
+* Take a look into wander-1.0 and xwangerer code to see any other new game
+  features (I feel that wander had those)
+
+* Add possibility to switch themes. Particalrly this requires redesign
+  of display routines to show arbitrary size pixmaps with scrolling
+
+* Add animations
+
+* Implement screens editor
+
+
