@@ -1,3 +1,36 @@
+2001-08-25  Eugene Sandulenko  <sev@interhack.net>
+
+	* src/monsters.c
+	* src/fall.c
+	* src/play.c: added
+
+	* Now the game is playable, but the source is complete mess
+	also it doesn't goes to next level and score is not updated
+	on the screen
+
+2001-07-23  Eugene Sandulenko  <sev@interhack.net>
+
+	* after rowing around finally I spent a little time on it.
+	  all *.[ch] files are zapped and gnobots2 got as a base.
+
+	* Now it compiles
+
+	* src/read.c: started to port
+
+	* Now it shows initial level. It appeared that there are some
+	  missing tiles
+
+2001-05-22  Eugene Sandulenko  <sev@interhack.net>
+
+	* src/read.c: new file from old distro. Read and write screens
+	
+	* src/graphics.c
+	* src/graphics.h
+	* src/app.c
+	* src/app.h
+	* src/gwanderer.h
+	* src/gwanderer.c: further work on GUI
+
 2001-05-17  Eugene Sandulenko  <sev@interhack.net>
 
 	* pixmaps/wanderer-logo.png: created

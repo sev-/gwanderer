@@ -1,54 +1,32 @@
-#include <stdio.h>
-#include <curses.h>
-#include <string.h>
-#include <fcntl.h>
-#include <sys/file.h>
+#ifndef GWANDERER_H
+#define GWANDERER_H
 
-#define VERSION "3.2"
 
-		/********** FILES ************/
+/**********************************************************************/
+/* Exported Variables                                                 */
+/**********************************************************************/
+extern GtkWidget *app;
+extern GtkWidget *game_area;
+/**********************************************************************/
 
-/* Change these to the necessary directories or files */
-#define SCREENPATH "wandscreens"
-#define HISCOREPATH ".hiscores"
-#define DICTIONARY "/usr/dict/words"
-#define LOCKFILE "/tmp/wanderer.lock"
 
-		/********** PASSWORDS *********/
-
-/* change this to anything, but dont forget what 			*/
-#define MASTERPASSWORD "chocolate chips"
-
-/* change the numbers in this as well, but keep it in the same form 	*/
-#define PASSWD (num * num * 4373 + num * 16927 + 39)
-
-/* this is the randon number seed used for encryption  			*/
-#define BLURFL 32451
-/* the word blurfl is used for historical reasons 			*/
-
-		/********** OPTIONS ***********/
-
-/* To disable the recording of hiscores from games restored from saves 	*/
-/* #define NO_RESTORED_GAME_HISCORES  */
-/* #define COMPARE_BY_NAME  /* define this to compare by name, not uid 	*/
-/* #define NO_ENCRYPTION /* define this to disable the savefile encryptor */
-#define NOISY    /* do we want bells in the game ? */
-
-		/****** OTHER PARAMETERS ******/
-
-#define GUESTUID 0    /* guestuid always compared by name 	*/
-#define EMSIZE 1024   /* size of editor moves memory      	*/
-#define ENTRIES 15    /* size of hiscore file 			*/
-
-	    /**** NOTHING TO CHANGE BELOW HERE ****/
+#define SCREENPATH "../screens"
 
 /* I wouldnt change these if I were you - it wont give you a bigger screen */
 #define ROWLEN 40
 #define NOOFROWS 16
 
-#define	R_BIN	"r"
-#define	W_BIN	"w"
-#define	VOIDSTAR
+extern int edit_mode;
+extern char *edit_screen;
+extern char screen[NOOFROWS][ROWLEN+1];
+
+extern char screen_name[61];
+
+extern gint score;
+
+char *playscreen(gint dx, gint dy);
+void message_box(gchar *msg);
+
 
 /* Save and Restore game additions (M002) by Gregory H. Margo	*/
 /* mon_rec structure needed by save.c */
@@ -68,111 +46,11 @@ struct	save_vars	{
 		z_nf;
 };
 
-struct	old_save_vars	{
-	int	z_x, z_y,
-		z_nx, z_ny,
-		z_sx, z_sy,
-		z_tx, z_ty,
-		z_lx, z_ly,
-		z_mx, z_my,
-		z_bx, z_by,
-		z_nbx, z_nby,
-		z_max_score,
-		z_diamonds,
-		z_nf,
-		z_hd,
-		z_vd,
-		z_xdirection,
-		z_ydirection
-};
-
-/* prototypes added by Gregory H. Margo */
-#ifdef	LINT_ARGS	/* M001 */
-/* DISPLAY.c */
-extern  void map(char (*)[ROWLEN+1]);
-extern  void display(int ,int ,char (*)[ROWLEN+1],int );
-
-/* EDIT.C */
-extern  void instruct(void);
-extern  void noins(void);
-extern  void editscreen(int ,int *,int *,int ,char *);
-
-/* FALL.C */
-extern  int check(int *,int *,int ,int ,int ,int ,int ,int ,char *);
-extern  int fall(int *,int *,int ,int ,int ,int ,char *);
-
-/* GAME.C */
-extern  struct mon_rec *make_monster(int ,int );
-extern  char *playscreen(int *,int *,int *,int ,char *);
-
-/* ICON.C */
-extern  void draw_symbol(int ,int ,char );
-
-/* JUMP.C */
-extern  int scrn_passwd(int ,char *);
-extern  void showpass(int );
-extern  int jumpscreen(int );
-extern  int getnum(void);
-
-/* READ.C */
-extern  int rscreen(int ,int *);
-extern  int wscreen(int ,int );
-
-/* SAVE.C */
-extern  void save_game(int ,int *,int *,int ,struct mon_rec *,struct mon_rec *);
-extern  void restore_game(int *,int *,int *,int *,struct mon_rec *,struct mon_rec **);
-
-/* SCORES.C */
-extern  int savescore(char *,int ,int ,char *);
-extern  void delete_entry(int );
-extern  int erase_scores(void);
-
-#else
-
-/* DISPLAY.c */
-extern  void map();
-extern  void display();
-
-/* EDIT.C */
-extern  void instruct();
-extern  void noins();
-extern  void editscreen();
-
-/* FALL.C */
-extern  int check();
-extern  int fall();
-
-/* GAME.C */
-extern  struct mon_rec *make_monster();
-extern  char *playscreen();
-
-/* ICON.C */
-extern  void draw_symbol();
-
-/* JUMP.C */
-extern  int scrn_passwd();
-extern  void showpass();
-extern  int jumpscreen();
-extern  int getnum();
-
-/* READ.C */
-extern  int rscreen();
-extern  int wscreen();
-
-/* SAVE.C */
-extern  void save_game();
-extern  void restore_game();
-
-/* SCORES.C */
-extern  int savescore();
-extern  void delete_entry();
-extern  int erase_scores();
-
-#endif
-
 /* for monster movement */
 
 #define viable(x,y) (((screen[y][x] == ' ') || (screen[y][x] == ':') ||\
 	(screen[y][x] == '@') || (screen[y][x] == '+') ||\
 	(screen[y][x] == 'S')) && (y >= 0) &&\
 	(x >= 0) && (y < NOOFROWS) && (x < ROWLEN))
+
+#endif /* GWANDERER_H */
