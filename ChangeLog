@@ -1,3 +1,8 @@
+2001-08-26  Eugene Sandulenko  <sev@interhack.net>
+
+	* added possibility to change level, also statusbar shows correct
+	information
+
 2001-08-25  Eugene Sandulenko  <sev@interhack.net>
 
 	* src/monsters.c

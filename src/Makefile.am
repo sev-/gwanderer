@@ -27,7 +27,6 @@ gwanderer_SOURCES = \
 	sound.h \
 	gbdefs.h \
 	read.c \
-	play.c \
 	monsters.c \
 	fall.c
 

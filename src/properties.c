@@ -23,9 +23,9 @@
 /**********************************************************************/
 /* Game Properties Structure                                          */
 /**********************************************************************/
-typedef struct _GnobotsProperties GnobotsProperties;
+typedef struct _GwandererProperties GwandererProperties;
 
-struct _GnobotsProperties{
+struct _GwandererProperties{
   gboolean safe_moves;
   gboolean super_safe_moves;
   gboolean sound;
@@ -46,8 +46,8 @@ static GtkWidget         *clist        = NULL;
 static GtkWidget         *etext[12];
 static gint                timeout_id   = -1;
 static gint                anim_counter = 0;
-static GnobotsProperties  properties;
-static GnobotsProperties  temp_prop;
+static GwandererProperties  properties;
+static GwandererProperties  temp_prop;
 
 static gint default_keys1[12] = {
 GDK_Y, GDK_K, GDK_U, 
@@ -72,7 +72,7 @@ GDK_KP_Add, GDK_KP_Multiply, GDK_KP_Enter};
 /**********************************************************************/
 /* Function Prototypes                                                */
 /**********************************************************************/
-static void copy_properties(GnobotsProperties*, GnobotsProperties*);
+static void copy_properties(GwandererProperties*, GwandererProperties*);
 static gint  timeout_cb(void*);
 static void remove_timeout();
 static void add_timeout();
@@ -104,11 +104,11 @@ static void fill_pmapmenu(GtkWidget*);
  * @p2: destination properties
  *
  * Description:
- * copies a GnobotsProperties structure
+ * copies a GwandererProperties structure
  **/
 static void copy_properties(
-GnobotsProperties *p1,
-GnobotsProperties *p2
+GwandererProperties *p1,
+GwandererProperties *p2
 ){
   gint i;
 
@@ -721,7 +721,7 @@ void show_properties_dialog(
   propbox = gnome_property_box_new();
 
   gtk_window_set_title(GTK_WINDOW(&GNOME_PROPERTY_BOX(propbox)->dialog.window),
-		       _("GnobotsII Preferences"));
+		       _("Gwanderer Preferences"));
 
   /* The configuration page */
   cpage = gtk_vbox_new(FALSE, GNOME_PAD);
@@ -1090,7 +1090,7 @@ gboolean load_properties(
   for(i = 0; i < 12; i++){
     properties.keys[i] = default_keys1[i];
 
-    sprintf(buffer, "/gnobots2/Properties/Key%02d=0", i);
+    sprintf(buffer, "/gwanderer/Properties/Key%02d=0", i);
 
     v = gnome_config_get_int_with_default(buffer, NULL);    
     if(v > 0){
@@ -1100,7 +1100,7 @@ gboolean load_properties(
 
 
   sname = gnome_config_get_string_with_default(
-            "/gnobots2/Properties/Scenario=robots", NULL);
+            "/gwanderer/Properties/Scenario=robots", NULL);
 
   properties.selected_graphics = 0;
   for(i = 0; i < num_game_graphics(); ++i){
@@ -1114,7 +1114,7 @@ gboolean load_properties(
 
 
   cname = gnome_config_get_string_with_default(
-            "/gnobots2/Properties/Configuration=classic_robots", NULL);
+            "/gwanderer/Properties/Configuration=classic_robots", NULL);
 
   properties.selected_config = 0;
   for(i = 0; i < num_game_configs(); ++i){
@@ -1128,13 +1128,13 @@ gboolean load_properties(
 
 
   properties.safe_moves = gnome_config_get_int_with_default(
-		           "/gnobots2/Properties/SafeMoves=1", NULL);
+		           "/gwanderer/Properties/SafeMoves=1", NULL);
   properties.super_safe_moves = gnome_config_get_int_with_default(
-		           "/gnobots2/Properties/SuperSafeMoves=1", NULL);
+		           "/gwanderer/Properties/SuperSafeMoves=1", NULL);
   properties.sound      = gnome_config_get_int_with_default(
-                           "/gnobots2/Properties/Sound=1", NULL);
+                           "/gwanderer/Properties/Sound=1", NULL);
   properties.splats     = gnome_config_get_int_with_default(
-                           "/gnobots2/Properties/Splats=1", NULL);
+                           "/gwanderer/Properties/Splats=1", NULL);
 
   set_game_graphics(properties.selected_graphics);
   set_game_config(properties.selected_config);
@@ -1157,19 +1157,19 @@ gboolean save_properties(
   gint   i;
 
   for(i = 0; i < 12; i++){
-    sprintf(buffer, "/gnobots2/Properties/Key%02d", i);
+    sprintf(buffer, "/gwanderer/Properties/Key%02d", i);
 
     gnome_config_set_int(buffer, properties.keys[i]);    
   }
 
-  gnome_config_set_string("/gnobots2/Properties/Scenario", 
+  gnome_config_set_string("/gwanderer/Properties/Scenario", 
 			  game_graphics_name(properties.selected_graphics));
-  gnome_config_set_string("/gnobots2/Properties/Configuration", 
+  gnome_config_set_string("/gwanderer/Properties/Configuration", 
 			  game_config_name(properties.selected_config));
-  gnome_config_set_int("/gnobots2/Properties/SafeMoves", properties.safe_moves);
-  gnome_config_set_int("/gnobots2/Properties/SuperSafeMoves", properties.safe_moves);
-  gnome_config_set_int("/gnobots2/Properties/Sound", properties.sound);
-  gnome_config_set_int("/gnobots2/Properties/Splats", properties.splats);
+  gnome_config_set_int("/gwanderer/Properties/SafeMoves", properties.safe_moves);
+  gnome_config_set_int("/gwanderer/Properties/SuperSafeMoves", properties.safe_moves);
+  gnome_config_set_int("/gwanderer/Properties/Sound", properties.sound);
+  gnome_config_set_int("/gwanderer/Properties/Splats", properties.splats);
     
   gnome_config_sync();
 }

@@ -23,9 +23,11 @@ extern char screen[NOOFROWS][ROWLEN+1];
 extern char screen_name[61];
 
 extern gint score;
+extern gint current_screen;
 
 char *playscreen(gint dx, gint dy);
 void message_box(gchar *msg);
+void draw_graphics();
 
 
 /* Save and Restore game additions (M002) by Gregory H. Margo	*/

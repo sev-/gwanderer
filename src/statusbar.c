@@ -11,7 +11,8 @@ static GtkWidget *statusbar        = NULL;
 static GtkWidget *sbtbl            = NULL;
 static GtkWidget *score_area       = NULL;
 static GtkWidget *score_label      = NULL;
-static GtkWidget *safe_label       = NULL;
+static GtkWidget *found_label      = NULL;
+static GtkWidget *total_label      = NULL;
 static GtkWidget *level_label      = NULL;
 static GtkWidget *remaining_label  = NULL;
 static gboolean   show_both        = TRUE;
@@ -23,7 +24,7 @@ static gboolean   show_both        = TRUE;
 /**********************************************************************/
 
 /**
- * gnobots_statusbar_new
+ * gwanderer_statusbar_new
  *
  * Description:
  * creates a new statusbar
@@ -31,7 +32,7 @@ static gboolean   show_both        = TRUE;
  * Returns:
  * a pointer to the statusbar or NULL on failure
  **/
-GtkWidget* gnobots_statusbar_new(
+GtkWidget* gwanderer_statusbar_new(
 ){
   GtkWidget *label;
 
@@ -39,7 +40,7 @@ GtkWidget* gnobots_statusbar_new(
     return statusbar;
   }
 
-  sbtbl = gtk_table_new(1, 11, FALSE);
+  sbtbl = gtk_table_new(1, 14, FALSE);
 
   label = gtk_label_new(_("Score:"));
   gtk_table_attach(GTK_TABLE(sbtbl), label, 0, 1, 0, 1, 0, 0, 3, 3);
@@ -50,33 +51,43 @@ GtkWidget* gnobots_statusbar_new(
   gtk_widget_show(score_label);
 
   gtk_table_set_col_spacing(GTK_TABLE(sbtbl), 2, 32);
-    
-  label = gtk_label_new(_("Safe Teleports:"));
+
+  label = gtk_label_new(_("Found:"));
   gtk_table_attach(GTK_TABLE(sbtbl), label, 3, 4, 0, 1, 0, 0, 3, 3);
   gtk_widget_show(label);
     
-  safe_label = gtk_label_new("0");
-  gtk_table_attach(GTK_TABLE(sbtbl), safe_label, 4, 5, 0, 1, 0, 0, 3, 3);
-  gtk_widget_show(safe_label);
+  found_label = gtk_label_new("0");
+  gtk_table_attach(GTK_TABLE(sbtbl), found_label, 4, 5, 0, 1, 0, 0, 3, 3);
+  gtk_widget_show(found_label);
     
   gtk_table_set_col_spacing(GTK_TABLE(sbtbl), 5, 32);
-    
-  label = gtk_label_new(_("Level:"));
+
+  label = gtk_label_new(_("Total:"));
   gtk_table_attach(GTK_TABLE(sbtbl), label, 6, 7, 0, 1, 0, 0, 3, 3);
   gtk_widget_show(label);
     
-  level_label = gtk_label_new("0");
-  gtk_table_attach(GTK_TABLE(sbtbl), level_label, 7, 8, 0, 1, 0, 0, 3, 3);
-  gtk_widget_show(level_label);
+  total_label = gtk_label_new("0");
+  gtk_table_attach(GTK_TABLE(sbtbl), total_label, 7, 8, 0, 1, 0, 0, 3, 3);
+  gtk_widget_show(total_label);
     
   gtk_table_set_col_spacing(GTK_TABLE(sbtbl), 8, 32);
-
-  label = gtk_label_new(_("Remaining:"));
+    
+  label = gtk_label_new(_("Level:"));
   gtk_table_attach(GTK_TABLE(sbtbl), label, 9, 10, 0, 1, 0, 0, 3, 3);
   gtk_widget_show(label);
     
+  level_label = gtk_label_new("0");
+  gtk_table_attach(GTK_TABLE(sbtbl), level_label, 10, 11, 0, 1, 0, 0, 3, 3);
+  gtk_widget_show(level_label);
+
+  gtk_table_set_col_spacing(GTK_TABLE(sbtbl), 11, 32);
+    
+  label = gtk_label_new(_("Moves:"));
+  gtk_table_attach(GTK_TABLE(sbtbl), label, 12, 13, 0, 1, 0, 0, 3, 3);
+  gtk_widget_show(label);
+    
   remaining_label = gtk_label_new("0");
-  gtk_table_attach(GTK_TABLE(sbtbl), remaining_label, 10, 11, 0, 1, 0, 0, 3, 3);
+  gtk_table_attach(GTK_TABLE(sbtbl), remaining_label, 13, 14, 0, 1, 0, 0, 3, 3);
   gtk_widget_show(remaining_label);
     
   gtk_widget_show(sbtbl);
@@ -87,14 +98,14 @@ GtkWidget* gnobots_statusbar_new(
 
   show_both = TRUE;
 
-  gnobots_statusbar_reset();
+  gwanderer_statusbar_reset();
 
   return statusbar;
 }
 
 
 /**
- * gnobots_statusbar_delete
+ * gwanderer_statusbar_delete
  *
  * Description:
  * destroys an existing statusbar
@@ -102,7 +113,7 @@ GtkWidget* gnobots_statusbar_new(
  * Returns:
  * TRUE on success, FALSE otherwise
  **/
-gboolean gnobots_statusbar_delete(
+gboolean gwanderer_statusbar_delete(
 ){
   if(statusbar == NULL) return FALSE;
 
@@ -115,7 +126,7 @@ gboolean gnobots_statusbar_delete(
 
 
 /**
- * gnobots_statusbar_set_score
+ * gwanderer_statusbar_set_score
  * @score: score
  *
  * Description:
@@ -124,7 +135,7 @@ gboolean gnobots_statusbar_delete(
  * Returns:
  * TRUE on success, FALSE otherwise
  **/
-gboolean gnobots_statusbar_set_score(
+gboolean gwanderer_statusbar_set_score(
 gint score				    
 ){
   gchar buffer[32];
@@ -137,7 +148,7 @@ gint score
 
 
 /**
- * gnobots_statusbar_set_level
+ * gwanderer_statusbar_set_level
  * @level: level
  *
  * Description:
@@ -146,7 +157,7 @@ gint score
  * Returns:
  * TRUE on success, FALSE otherwise
  **/
-gboolean gnobots_statusbar_set_level(
+gboolean gwanderer_statusbar_set_level(
 gint level
 ){
   gchar buffer[32];
@@ -159,31 +170,50 @@ gint level
 
 
 /**
- * gnobots_statusbar_set_safe_teleports
- * @stel: safe teleports
+ * gwanderer_statusbar_set_found_diamonds
+ * @fdim: found diamonds
  *
  * Description:
- * sets the number of safe teleports on the statusbar
+ * sets the number of found diamonds on the statusbar
  *
  * Returns:
  * TRUE on success, FALSE otherwise
  **/
-gboolean gnobots_statusbar_set_safe_teleports(
-gint stel
+gboolean gwanderer_statusbar_set_found_diamonds(
+gint fdim
 ){
   gchar buffer[32];
 
   if(statusbar == NULL) return FALSE;
 
-  sprintf(buffer, "%d", stel);
-  gtk_label_set(GTK_LABEL(safe_label), buffer);
+  sprintf(buffer, "%d", fdim);
+  gtk_label_set(GTK_LABEL(found_label), buffer);
 }
 
 
 /**
- * gnobots_statusbar_set_remaining
+ * gwanderer_statusbar_set_total_diamonds
+ * @tdim: total diamonds
+ *
+ * Description:
+ * sets the total number of diamonds on the statusbar
+ *
+ * Returns:
+ * TRUE on success, FALSE otherwise
+ **/
+gboolean gwanderer_statusbar_set_total_diamonds(gint tdim) {
+  gchar buffer[32];
+
+  if(statusbar == NULL) return FALSE;
+
+  sprintf(buffer, "%d", tdim);
+  gtk_label_set(GTK_LABEL(total_label), buffer);
+}
+
+
+/**
+ * gwanderer_statusbar_set_remaining
  * @rem1: remaining type1
- * @rem2: remaining type2
  *
  * Description:
  * sets the number of remaining robots on the statusbar
@@ -191,30 +221,28 @@ gint stel
  * Returns:
  * TRUE on success, FALSE otherwise
  **/
-gboolean gnobots_statusbar_set_remaining(
-gint rem1,
-gint rem2
-){
+gboolean gwanderer_statusbar_set_remaining(gint rem) {
   gchar buffer[32];
 
   if(statusbar == NULL) return FALSE;
 
-  if(show_both){
-    sprintf(buffer, "%d+%d %d", rem1, rem2, rem1+rem2);
+  if (rem < 0) {
+    strcpy (buffer, "Unlimited");
   } else {
-    sprintf(buffer, "%d", rem1);
+    sprintf(buffer, "%d", rem);
   }
+
   gtk_label_set(GTK_LABEL(remaining_label), buffer);
 }
 
 
 /**
- * gnobots_statusbar_set
+ * gwanderer_statusbar_set
  * @score: score
  * @level: level
- * @stel: number of safe teleports
- * @rem1: remaining type1
- * @rem2: remaining type2
+ * @fdim: number of found diamonds
+ * @tdim: total number of diamonds
+ * @rem: remaining moves
  *
  * Description:
  * sets all of the values on the statusbar
@@ -222,26 +250,27 @@ gint rem2
  * Returns:
  * TRUE on success, FALSE otherwise
  **/
-gboolean gnobots_statusbar_set(
+gboolean gwanderer_statusbar_set(
 gint score,
 gint level,
-gint stel,
-gint rem1,
-gint rem2
+gint fdim,
+gint tdim,
+gint rem
 ){
   if(statusbar == NULL) return FALSE;
 
-  gnobots_statusbar_set_score(score);
-  gnobots_statusbar_set_level(level);
-  gnobots_statusbar_set_safe_teleports(stel);
-  gnobots_statusbar_set_remaining(rem1, rem2);
+  gwanderer_statusbar_set_score(score);
+  gwanderer_statusbar_set_level(level);
+  gwanderer_statusbar_set_found_diamonds(fdim);
+  gwanderer_statusbar_set_total_diamonds(tdim);
+  gwanderer_statusbar_set_remaining(rem);
 
   return TRUE;
 }
 
 
 /**
- * gnobots_statusbar_reset
+ * gwanderer_statusbar_reset
  *
  * Description:
  * resets all the values on the statusbar to 0
@@ -249,14 +278,14 @@ gint rem2
  * Returns:
  * TRUE on success, FALSE otherwise
  **/
-gboolean gnobots_statusbar_reset(
+gboolean gwanderer_statusbar_reset(
 ){
-  return gnobots_statusbar_set(0, 0, 0, 0, 0);
+  return gwanderer_statusbar_set(0, 0, 0, 0, 0);
 }
 
 
 /**
- * gnobots_statusbar_show_both
+ * gwanderer_statusbar_show_both
  * @show: show remaining
  *
  * Description:
@@ -265,7 +294,7 @@ gboolean gnobots_statusbar_reset(
  * Returns:
  * TRUE on success, FALSE otherwise
  **/
-gboolean gnobots_statusbar_show_both(
+gboolean gwanderer_statusbar_show_both(
 gboolean show
 ){
   if(statusbar == NULL) return FALSE;

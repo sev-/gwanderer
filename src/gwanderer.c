@@ -180,10 +180,7 @@ gpointer    client_data
  * Returns:
  * exit code
  **/
-int main(
-int argc,
-char *argv[]
-){
+int main(int argc, char *argv[]) {
   GtkWidget      *stbar;
   GnomeClient    *client;
   struct timeval tv;
@@ -198,7 +195,7 @@ char *argv[]
   textdomain(PACKAGE);
 
   gnome_init_with_popt_table(GAME_NAME, VERSION, argc, argv, options, 0, NULL);
-  gnome_window_icon_set_default_from_file (GNOME_ICONDIR"/gnome-gnobots2.png");
+  gnome_window_icon_set_default_from_file (GNOME_ICONDIR"/gwanderer-logo.png");
   /*
   gtk_widget_push_visual (gdk_imlib_get_visual ());
   gtk_widget_push_colormap (gdk_imlib_get_colormap ());
@@ -220,7 +217,7 @@ char *argv[]
   gtk_signal_connect(GTK_OBJECT(app), "delete_event",
 		     GTK_SIGNAL_FUNC(exit_cb), NULL);
 
-  stbar = gnobots_statusbar_new();
+  stbar = gwanderer_statusbar_new();
   gnome_app_set_statusbar(GNOME_APP(app), stbar);
 
   create_game_menus();

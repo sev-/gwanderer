@@ -44,7 +44,6 @@ int *maxmoves, num;
     if(fscanf(fp,"%d",maxmoves) != 1)
       *maxmoves=0;
     fclose(fp);
-    inform_me("Read", 0);
   };
   return (fp == NULL);
 }
